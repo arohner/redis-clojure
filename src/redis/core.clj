@@ -28,6 +28,11 @@
         (binding [redis.vars/*channel* (make-direct-channel connection#)]
           ~@body))))
 
+(defn set-server! [server-spec]
+  (with-connection connection *pool* server-spec
+    (let [channel (redis.channel/make-direct-channel connection)]
+      (alter-var-root (var redis.vars/*channel*) (constantly channel)))))
+
 (defmacro as-bytes
   "Wrap a Redis command in this macro to make it return
   byte array(s) instead of string(s)."

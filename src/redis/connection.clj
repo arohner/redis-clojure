@@ -30,7 +30,6 @@
          (release-connection ~pool ~name e#)
          (throw e#)))))
 
-
 ;;; Implementations
 (defn send-command-and-read-reply
   [connection command]
